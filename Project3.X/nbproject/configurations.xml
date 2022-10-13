@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>IOs.h</itemPath>
+      <itemPath>TimeDelay.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -195,6 +197,236 @@
         <property key="relaxed-math" value="false"/>
         <property key="save-temps" value="false"/>
       </C30Global>
+      <Simulator>
+        <property key="debugOn" value="false"/>
+        <property key="periphADC1Exists" value="true"/>
+        <property key="periphADC2Exists" value="false"/>
+        <property key="periphComp1Exists" value="true"/>
+        <property key="periphComp2Exists" value="true"/>
+        <property key="periphComp3Exists" value="false"/>
+        <property key="periphComp4Exists" value="false"/>
+        <property key="periphComp5Exists" value="false"/>
+        <property key="periphComp6Exists" value="false"/>
+        <property key="periphCompExists" value="false"/>
+        <property key="periphUART0Exists" value="false"/>
+        <property key="periphUART10Exists" value="false"/>
+        <property key="periphUART1Exists" value="true"/>
+        <property key="periphUART2Exists" value="true"/>
+        <property key="periphUART3Exists" value="false"/>
+        <property key="periphUART4Exists" value="false"/>
+        <property key="periphUART5Exists" value="false"/>
+        <property key="periphUART6Exists" value="false"/>
+        <property key="periphUART7Exists" value="false"/>
+        <property key="periphUART8Exists" value="false"/>
+        <property key="periphUART9Exists" value="false"/>
+        <property key="periphUSART0Exists" value="false"/>
+        <property key="periphUSART1Exists" value="false"/>
+        <property key="periphUSART2Exists" value="false"/>
+        <property key="periphUSART3Exists" value="false"/>
+        <property key="periphUSART4Exists" value="false"/>
+        <property key="periphUSARTC0Exists" value="false"/>
+        <property key="periphUSARTC1Exists" value="false"/>
+        <property key="periphUSARTD0Exists" value="false"/>
+        <property key="periphUSARTD1Exists" value="false"/>
+        <property key="periphUSARTE0Exists" value="false"/>
+        <property key="periphUSARTE1Exists" value="false"/>
+        <property key="periphUSARTF0Exists" value="false"/>
+        <property key="periphUSARTF1Exists" value="false"/>
+        <property key="peripheralEnableSupportDisabled" value="true"/>
+        <property key="textoff" value="true"/>
+      </Simulator>
+      <Tool>
+        <property key="ADC 1" value="true"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="CLOCK CONTROL LVDCON" value="true"/>
+        <property key="CLOCK CONTROL REFOCON" value="true"/>
+        <property key="COMPARATOR" value="true"/>
+        <property key="CRC" value="true"/>
+        <property key="CTMU" value="true"/>
+        <property key="Freeze All Other Peripherals" value="true"/>
+        <property key="I2C1" value="true"/>
+        <property key="INPUT CAPTURE 1" value="true"/>
+        <property key="OUTPUT COMPARE 1" value="true"/>
+        <property key="SPI 1" value="true"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="TIMER1" value="true"/>
+        <property key="TIMER2" value="true"/>
+        <property key="TIMER3" value="true"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UpdateOptions"
+                  value="ToolFirmwareOption.UseLatest"/>
+        <property key="ToolFirmwareToolPack"
+                  value="Press to select which tool pack to use"/>
+        <property key="UART 1" value="true"/>
+        <property key="UART 2" value="true"/>
+        <property key="communication.activationmode" value="nohv"/>
+        <property key="communication.interface" value=""/>
+        <property key="communication.interface.jtag" value="2wire"/>
+        <property key="communication.speed" value="${communication.speed.default}"/>
+        <property key="debugOn" value="false"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.simultaneous.debug" value="false"/>
+        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="freeze.timers" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.configurationmemory2" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0-2bff"/>
+        <property key="periphADC1Exists" value="true"/>
+        <property key="periphADC2Exists" value="false"/>
+        <property key="periphComp1Exists" value="true"/>
+        <property key="periphComp2Exists" value="true"/>
+        <property key="periphComp3Exists" value="false"/>
+        <property key="periphComp4Exists" value="false"/>
+        <property key="periphComp5Exists" value="false"/>
+        <property key="periphComp6Exists" value="false"/>
+        <property key="periphCompExists" value="false"/>
+        <property key="periphUART0Exists" value="false"/>
+        <property key="periphUART10Exists" value="false"/>
+        <property key="periphUART1Exists" value="true"/>
+        <property key="periphUART2Exists" value="true"/>
+        <property key="periphUART3Exists" value="false"/>
+        <property key="periphUART4Exists" value="false"/>
+        <property key="periphUART5Exists" value="false"/>
+        <property key="periphUART6Exists" value="false"/>
+        <property key="periphUART7Exists" value="false"/>
+        <property key="periphUART8Exists" value="false"/>
+        <property key="periphUART9Exists" value="false"/>
+        <property key="periphUSART0Exists" value="false"/>
+        <property key="periphUSART1Exists" value="false"/>
+        <property key="periphUSART2Exists" value="false"/>
+        <property key="periphUSART3Exists" value="false"/>
+        <property key="periphUSART4Exists" value="false"/>
+        <property key="periphUSARTC0Exists" value="false"/>
+        <property key="periphUSARTC1Exists" value="false"/>
+        <property key="periphUSARTD0Exists" value="false"/>
+        <property key="periphUSARTD1Exists" value="false"/>
+        <property key="periphUSARTE0Exists" value="false"/>
+        <property key="periphUSARTE1Exists" value="false"/>
+        <property key="periphUSARTF0Exists" value="false"/>
+        <property key="periphUSARTF1Exists" value="false"/>
+        <property key="peripheralEnableSupportDisabled" value="true"/>
+        <property key="poweroptions.powerenable" value="true"/>
+        <property key="programmerToGoImageName" value="Project3_ptg"/>
+        <property key="programoptions.donoteraseauxmem" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.ledbrightness" value="5"/>
+        <property key="programoptions.pgcconfig" value="pull down"/>
+        <property key="programoptions.pgcresistor.value" value="4.7"/>
+        <property key="programoptions.pgdconfig" value="pull down"/>
+        <property key="programoptions.pgdresistor.value" value="4.7"/>
+        <property key="programoptions.pgmentry.voltage" value="high"/>
+        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveeeprom.ranges" value="7ffe00-7fffff"/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.program.otpconfig" value="false"/>
+        <property key="programoptions.programcalmem" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
+        <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
+        <property key="ptgProgramImage" value="true"/>
+        <property key="ptgSendImage" value="true"/>
+        <property key="textoff" value="true"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
+        <property key="voltagevalue" value="3.25"/>
+      </Tool>
+      <pk4hybrid>
+        <property key="ADC 1" value="true"/>
+        <property key="AutoSelectMemRanges" value="auto"/>
+        <property key="CLOCK CONTROL LVDCON" value="true"/>
+        <property key="CLOCK CONTROL REFOCON" value="true"/>
+        <property key="COMPARATOR" value="true"/>
+        <property key="CRC" value="true"/>
+        <property key="CTMU" value="true"/>
+        <property key="Freeze All Other Peripherals" value="true"/>
+        <property key="I2C1" value="true"/>
+        <property key="INPUT CAPTURE 1" value="true"/>
+        <property key="OUTPUT COMPARE 1" value="true"/>
+        <property key="SPI 1" value="true"/>
+        <property key="SecureSegment.SegmentProgramming" value="FullChipProgramming"/>
+        <property key="TIMER1" value="true"/>
+        <property key="TIMER2" value="true"/>
+        <property key="TIMER3" value="true"/>
+        <property key="ToolFirmwareFilePath"
+                  value="Press to browse for a specific firmware version"/>
+        <property key="ToolFirmwareOption.UpdateOptions"
+                  value="ToolFirmwareOption.UseLatest"/>
+        <property key="ToolFirmwareToolPack"
+                  value="Press to select which tool pack to use"/>
+        <property key="UART 1" value="true"/>
+        <property key="UART 2" value="true"/>
+        <property key="communication.activationmode" value="nohv"/>
+        <property key="communication.interface" value=""/>
+        <property key="communication.interface.jtag" value="2wire"/>
+        <property key="communication.speed" value="${communication.speed.default}"/>
+        <property key="debugoptions.debug-startup" value="Use system settings"/>
+        <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="debugoptions.simultaneous.debug" value="false"/>
+        <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="freeze.timers" value="false"/>
+        <property key="memories.aux" value="false"/>
+        <property key="memories.bootflash" value="true"/>
+        <property key="memories.configurationmemory" value="true"/>
+        <property key="memories.configurationmemory2" value="true"/>
+        <property key="memories.dataflash" value="true"/>
+        <property key="memories.eeprom" value="true"/>
+        <property key="memories.exclude.configurationmemory" value="true"/>
+        <property key="memories.flashdata" value="true"/>
+        <property key="memories.id" value="true"/>
+        <property key="memories.instruction.ram.ranges"
+                  value="${memories.instruction.ram.ranges}"/>
+        <property key="memories.programmemory" value="true"/>
+        <property key="memories.programmemory.ranges" value="0-2bff"/>
+        <property key="poweroptions.powerenable" value="true"/>
+        <property key="programmerToGoImageName" value="Project3_ptg"/>
+        <property key="programoptions.donoteraseauxmem" value="false"/>
+        <property key="programoptions.eraseb4program" value="true"/>
+        <property key="programoptions.ledbrightness" value="5"/>
+        <property key="programoptions.pgcconfig" value="pull down"/>
+        <property key="programoptions.pgcresistor.value" value="4.7"/>
+        <property key="programoptions.pgdconfig" value="pull down"/>
+        <property key="programoptions.pgdresistor.value" value="4.7"/>
+        <property key="programoptions.pgmentry.voltage" value="high"/>
+        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.preservedataflash" value="false"/>
+        <property key="programoptions.preservedataflash.ranges"
+                  value="${memories.dataflash.default}"/>
+        <property key="programoptions.preserveeeprom" value="false"/>
+        <property key="programoptions.preserveeeprom.ranges" value="7ffe00-7fffff"/>
+        <property key="programoptions.preserveprogram.ranges" value=""/>
+        <property key="programoptions.preserveprogramrange" value="false"/>
+        <property key="programoptions.preserveuserid" value="false"/>
+        <property key="programoptions.program.otpconfig" value="false"/>
+        <property key="programoptions.programcalmem" value="false"/>
+        <property key="programoptions.programuserotp" value="false"/>
+        <property key="programoptions.testmodeentrymethod" value="VDDFirst"/>
+        <property key="ptgProgramImage" value="true"/>
+        <property key="ptgSendImage" value="true"/>
+        <property key="toolpack.updateoptions"
+                  value="toolpack.updateoptions.uselatestoolpack"/>
+        <property key="toolpack.updateoptions.packversion"
+                  value="Press to select which tool pack to use"/>
+        <property key="voltagevalue" value="3.25"/>
+      </pk4hybrid>
     </conf>
   </confs>
 </configurationDescriptor>
