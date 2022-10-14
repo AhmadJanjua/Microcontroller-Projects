@@ -3,5 +3,6 @@
 
 #include "xc.h"
 void delay_ms(int time_ms);
+void TDinit(void);
 
 #endif

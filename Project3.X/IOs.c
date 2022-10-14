@@ -6,9 +6,35 @@
  */
 
 #include "IOs.h"
-
+extern int TMR2flag;
 void IOinit(void)
 {
+    // Switch clock
+    SRbits.IPL = 7;  //Disable interrupts
+    CLKDIVbits.RCDIV = 0;  // CLK division = 0
+    __builtin_write_OSCCONH(0x55);   // (0x00) for 8MHz; (0x66) for 500kHz; (0x55) for 32kHz;
+    __builtin_write_OSCCONL(0x01);
+    OSCCONbits.OSWEN=1;
+    
+    while(OSCCONbits.OSWEN==1)
+    {} 
+    SRbits.IPL = 0;  //enable interrupts   
+    
+    INTCON1bits.NSTDIS = 1;
+    // Timer
+    T2CONbits.T32 = 0; // Make the timer 16 bits
+    T2CONbits.TSIDL = 0;
+    T2CONbits.TCS = 0;
+    
+    T2CONbits.TCKPS0 = 0;
+    T2CONbits.TCKPS1 = 0;
+    
+    IEC0bits.T2IE = 1;
+    IFS0bits.T2IF = 0;
+    IPC1bits.T2IP0 = 0;
+    IPC1bits.T2IP1 = 0;
+    IPC1bits.T2IP2 = 1;
+    
     // Set Analog to digital
     AD1PCFGbits.PCFG4 = 1;
     
@@ -33,68 +59,49 @@ void IOinit(void)
     return;
 }
 
+void swap_state(void)
+{
+    LATBbits.LATB8 = !LATBbits.LATB8;
+}
 
 void IOcheck(void)
 {
-    uint32_t i = 0;
-    
-// Checks if two or more buttons are clicked
-        if( PORTAbits.RA2 + PORTAbits.RA4 + PORTBbits.RB4 < 2 ) {
-            LATBbits.LATB8 = 1; // Set led on
+    // Always default state is off
+    LATBbits.LATB8 = 0;
+    // Checks if PB1 and PB2 are clicked
+    if (!PORTAbits.RA2 + !PORTAbits.RA4 - !PORTBbits.RB4 == 2 ) { 
+        while(!PORTAbits.RA2 + !PORTAbits.RA4 - !PORTBbits.RB4 == 2 ){
+            swap_state();
+            delay_ms(1);
         }
-        // Checks if PB1 is pressed
-        else if (!PORTAbits.RA2) {
-            // Resets bit to
-            LATBbits.LATB8 = 0;
-            // Keep checking if PB1 is pressed
-            while(!PORTAbits.RA2) {
-                // Swap the button state
-                LATBbits.LATB8 = !LATBbits.LATB8; // Set led on
-                // Reset counter
-                i = 0;
-                // Check if buttons are clicked and cycle for 1 second
-                while( !PORTAbits.RA2 && PORTAbits.RA4 && PORTBbits.RB4
-                        && i != 85225)
-                    i++;
-            }
+    }
+    // Checks if PB1 is pressed
+    else if (!PORTAbits.RA2 & PORTAbits.RA4 & PORTBbits.RB4) {
+        // Keep checking if PB1 is pressed
+        while(!PORTAbits.RA2 & PORTAbits.RA4 & PORTBbits.RB4) {
+            swap_state();
+            delay_ms(1000);
         }
-        
-        // Checks if PB2 is pressed
-        else if (!PORTAbits.RA4) {
-            // Resets bit to
-            LATBbits.LATB8 = 0;
-            // Keep checking if PB2 is pressed
-            while(!PORTAbits.RA4) {
-                // Swap the button state
-                LATBbits.LATB8 = !LATBbits.LATB8; // Set led on
-                // Reset counter
-                i = 0;
-                // Check if other buttons are clicked and cycle for 2 seconds
-                while( PORTAbits.RA2 && !PORTAbits.RA4 && PORTBbits.RB4
-                        && i != 170656)
-                    i++;
-            }
+    }
+    // Checks if PB2 is pressed
+    else if (PORTAbits.RA2 & !PORTAbits.RA4 & PORTBbits.RB4) {
+        // Keep checking if PB2 is pressed
+        while(PORTAbits.RA2 & !PORTAbits.RA4 & PORTBbits.RB4) {
+            swap_state();
+            delay_ms(2000);    
         }
-        // Checks if PB3 is pressed
-        else if (!PORTBbits.RB4) {
-            // Resets bit to
-            LATBbits.LATB8 = 0;
-            // Keep checking if PB3 is pressed
-            while(!PORTBbits.RB4) {
-                // Swap the button state
-                LATBbits.LATB8 = !LATBbits.LATB8; // Set led on
-                // Reset counter
-                i = 0;
-                // Check if other buttons are clicked and cycle for 3 seconds
-                while( PORTAbits.RA2 && PORTAbits.RA4 && !PORTBbits.RB4
-                        && i != 256088)
-                    i++;
-            }
+    }
+    // Checks if PB3 is pressed
+    else if (PORTAbits.RA2 & PORTAbits.RA4 & !PORTBbits.RB4) {
+        // Keep checking if PB3 is pressed
+        while(PORTAbits.RA2 & PORTAbits.RA4 & !PORTBbits.RB4) {
+           swap_state();
+           delay_ms(3000);
         }
-        // When no buttons are pressed, led is off
-        else {
-            LATBbits.LATB8 = 0; // Set led off
-        }
-    
+    }
+    // When no buttons are pressed, led is off
+    else {
+        LATBbits.LATB8 = 0; // Set led off
+    }
     return;
 }
