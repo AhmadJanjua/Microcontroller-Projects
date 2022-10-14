@@ -6,7 +6,6 @@
  */
 
 #include "IOs.h"
-extern int TMR2flag;
 void IOinit(void)
 {
     // Switch clock

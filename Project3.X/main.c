@@ -19,7 +19,6 @@
 #pragma config OSCIOFNC = ON  //CLKO output disabled on pin 8, use as IO. 
 #pragma config POSCMOD = NONE  // Primary oscillator mode is disabled
 
-int TMR2flag = 1;
 
 int  main(void) {
     

@@ -66,20 +66,18 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200                0xe0           0x150  (336)
-.text                        0x2e0               0x276           0x3b1  (945)
-.dinit                       0x556                 0xa             0xf  (15)
+.text                        0x200                0xd8           0x144  (324)
+.text                        0x2d8               0x276           0x3b1  (945)
 
-                 Total "program" memory used (bytes):          0x510  (1296) 8%
+                 Total "program" memory used (bytes):          0x4f5  (1269) 7%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x600]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.ndata                       0x800                   0             0x2  (2)
 
-                 Total "data" memory used (bytes):            0x2  (2) <1%
+                 Total "data" memory used (bytes):              0  (0) 
 
 
 Dynamic Memory Usage
@@ -87,20 +85,12 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x802                               0x5fe  (1534)
+stack                        0x800                               0x600  (1536)
 
-                 Maximum dynamic memory (bytes):          0x5fe  (1534)
+                 Maximum dynamic memory (bytes):          0x600  (1536)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
-
-External Symbols in Data Memory (by address):
-
-                    0x0800                  _TMR2flag
-
-External Symbols in Data Memory (by name):
-
-                    0x0800                  _TMR2flag
 
 External Symbols in Program Memory (by address):
 
@@ -109,28 +99,28 @@ External Symbols in Program Memory (by address):
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x0002c8                  __T2Interrupt
-                  0x0002da                  __DefaultInterrupt
-                  0x0002e0                  _IOinit
-                  0x000352                  _swap_state
-                  0x000376                  _IOcheck
-                  0x0004dc                  _TDinit
-                  0x000538                  _delay_ms
-                  0x00054c                  _main
+                  0x0002d2                  __DefaultInterrupt
+                  0x0002d8                  _IOinit
+                  0x00034a                  _swap_state
+                  0x00036e                  _IOcheck
+                  0x0004d4                  _TDinit
+                  0x000530                  _delay_ms
+                  0x000544                  _main
 
 External Symbols in Program Memory (by name):
 
-                  0x000376                  _IOcheck
-                  0x0002e0                  _IOinit
-                  0x0004dc                  _TDinit
-                  0x0002da                  __DefaultInterrupt
+                  0x00036e                  _IOcheck
+                  0x0002d8                  _IOinit
+                  0x0004d4                  _TDinit
+                  0x0002d2                  __DefaultInterrupt
                   0x0002c8                  __T2Interrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000538                  _delay_ms
-                  0x00054c                  _main
-                  0x000352                  _swap_state
+                  0x000530                  _delay_ms
+                  0x000544                  _main
+                  0x00034a                  _swap_state
 
 Memory Configuration
 
@@ -182,7 +172,7 @@ LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200         0xe0
+.text             0x000200         0xd8
  *(.init)
  .init            0x000200         0x4c c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
@@ -194,18 +184,18 @@ LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8         0x12 build/default/production/TimeDelay.o
+ .isr.text        0x0002c8          0xa build/default/production/TimeDelay.o
                   0x0002c8                  __T2Interrupt
- .isr             0x0002da          0x4 default_isr
-                  0x0002da                  __DefaultInterrupt
+ .isr             0x0002d2          0x4 default_isr
+                  0x0002d2                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0002de          0x2 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
-                  0x0002de                  __crt_start_mode
-                  0x0002de                  __crt_start_mode_normal
+                  0x0002d6          0x2 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+                  0x0002d6                  __crt_start_mode
+                  0x0002d6                  __crt_start_mode_normal
 
 usercode
  *(usercode)
@@ -237,35 +227,35 @@ __FDS
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x211c
+.debug_info       0x000000       0x20eb
  *(.debug_info)
- .debug_info      0x000000        0x15d build/default/production/main.o
- .debug_info      0x00015d       0x14ea build/default/production/IOs.o
- .debug_info      0x001647        0xad5 build/default/production/TimeDelay.o
+ .debug_info      0x000000        0x146 build/default/production/main.o
+ .debug_info      0x000146       0x14ea build/default/production/IOs.o
+ .debug_info      0x001630        0xabb build/default/production/TimeDelay.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x2e7
+.debug_abbrev     0x000000        0x2d6
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x47 build/default/production/main.o
- .debug_abbrev    0x000047        0x155 build/default/production/IOs.o
- .debug_abbrev    0x00019c        0x14b build/default/production/TimeDelay.o
+ .debug_abbrev    0x000000         0x36 build/default/production/main.o
+ .debug_abbrev    0x000036        0x155 build/default/production/IOs.o
+ .debug_abbrev    0x00018b        0x14b build/default/production/TimeDelay.o
 
-.debug_line       0x000000        0x2b8
+.debug_line       0x000000        0x2b7
  *(.debug_line)
  .debug_line      0x000000         0x36 build/default/production/main.o
  .debug_line      0x000036        0x14c build/default/production/IOs.o
- .debug_line      0x000182        0x136 build/default/production/TimeDelay.o
+ .debug_line      0x000182        0x135 build/default/production/TimeDelay.o
 
-.debug_frame      0x000000         0xfc
+.debug_frame      0x000000         0xf2
  *(.debug_frame)
  .debug_frame     0x000000         0x2e build/default/production/main.o
  .debug_frame     0x00002e         0x62 build/default/production/IOs.o
- .debug_frame     0x000090         0x6c build/default/production/TimeDelay.o
+ .debug_frame     0x000090         0x62 build/default/production/TimeDelay.o
 
-.debug_str        0x000000        0x105
+.debug_str        0x000000         0xfc
  *(.debug_str)
  .debug_str       0x000000         0xb5 build/default/production/IOs.o
- .debug_str       0x0000b5         0x50 build/default/production/TimeDelay.o
+ .debug_str       0x0000b5         0x47 build/default/production/TimeDelay.o
 
 .debug_loc
  *(.debug_loc)
@@ -274,14 +264,14 @@ __FDS
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0x9b
+                  0x000000         0x8e
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x28 build/default/production/main.o
+                  0x000000         0x1b build/default/production/main.o
  .debug_pubnames
-                  0x000028         0x38 build/default/production/IOs.o
+                  0x00001b         0x38 build/default/production/IOs.o
  .debug_pubnames
-                  0x000060         0x3b build/default/production/TimeDelay.o
+                  0x000053         0x3b build/default/production/TimeDelay.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -701,7 +691,6 @@ LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/Project3.X.production.elf elf32-pic30)
 LOAD default_isr
-LOAD data_init
 
 .debug_pubtypes
                   0x000048        0x370
@@ -725,10 +714,6 @@ __c30_signature
  __c30_signature
                   0x0003d0          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
 
-.ndata              0x0800          0x2
- .ndata             0x0800          0x2 build/default/production/main.o
-                    0x0800                  _TMR2flag
-
 .config_FCKSM     0xf80008          0x2
  .config_FCKSM    0xf80008          0x2 build/default/production/main.o
 
@@ -740,16 +725,13 @@ __c30_signature
  .ivt._T2Interrupt
                   0x000022          0x2 build/default/production/TimeDelay.o
 
-.text             0x0002e0        0x276
- .text            0x0002e0        0x1fc build/default/production/IOs.o
-                  0x0002e0                  _IOinit
-                  0x000352                  _swap_state
-                  0x000376                  _IOcheck
- .text            0x0004dc         0x70 build/default/production/TimeDelay.o
-                  0x0004dc                  _TDinit
-                  0x000538                  _delay_ms
- .text            0x00054c          0xa build/default/production/main.o
-                  0x00054c                  _main
-
-.dinit            0x000556          0xa
- .dinit           0x000556          0xa data_init
+.text             0x0002d8        0x276
+ .text            0x0002d8        0x1fc build/default/production/IOs.o
+                  0x0002d8                  _IOinit
+                  0x00034a                  _swap_state
+                  0x00036e                  _IOcheck
+ .text            0x0004d4         0x70 build/default/production/TimeDelay.o
+                  0x0004d4                  _TDinit
+                  0x000530                  _delay_ms
+ .text            0x000544          0xa build/default/production/main.o
+                  0x000544                  _main

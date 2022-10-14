@@ -7,7 +7,6 @@
 
 
 #include "TimeDelay.h"
-extern int TMR2flag;
 void TDinit() {
     
     INTCON1bits.NSTDIS = 1; // Disable nested interrupts
@@ -44,7 +43,6 @@ void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
 {
     IFS0bits.T2IF=0; //Clear timer 2 interrupt flag
     T2CONbits.TON=0; //stop timer
-    TMR2flag = 1; // global variable created by user
     return;
 }
 
