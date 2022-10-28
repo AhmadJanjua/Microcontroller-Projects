@@ -85,10 +85,10 @@ void InitUART2(void)
 
 
 
-///// Xmit UART2: 
-///// Displays 'DispData' on PC terminal 'repeatNo' of times using UART to PC. 
-///// Adjust Baud on real term as per clock: 
-////  32kHz clock - Baud=300 ; 500kHz clock - Baud=4800; 8MHz clock - Baud=9600 
+/// Xmit UART2: 
+/// Displays 'DispData' on PC terminal 'repeatNo' of times using UART to PC. 
+/// Adjust Baud on real term as per clock: 
+//  32kHz clock - Baud=300 ; 500kHz clock - Baud=4800; 8MHz clock - Baud=9600 
 
 void XmitUART2(char CharNum, unsigned int repeatNo)
 {	
@@ -115,16 +115,12 @@ void XmitUART2(char CharNum, unsigned int repeatNo)
 
 
 
-
-
 // Interrupt service routine for UART TX
 
 void __attribute__ ((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
 	IFS1bits.U2TXIF = 0;
 
 }
-
-
 
 
 // Displays 16 bit number in Hex form using UART2
@@ -154,7 +150,6 @@ void Disp2Hex(unsigned int DispData)
     DispData = 0x0000;  // Clear DispData
     return;
 }
-
 
 // Displays 32 bit number DispData32 in Hex form using UART2
 void Disp2Hex32(unsigned long int DispData32)   
@@ -226,4 +221,3 @@ void Disp2String(char *str)
     
     return;
 }
-

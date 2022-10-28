@@ -18,10 +18,11 @@ Command:
   -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/dsPIC33C/gld \
   -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/dsPIC33E/gld \
   -Lc:/program files/microchip/xc16/v2.00/bin/bin/../../support/dsPIC33F/gld \
-  build/default/production/main.o \
-  build/default/production/IOs.o \
   build/default/production/TimeDelay.o \
   build/default/production/UART2.o \
+  build/default/production/IOs.o \
+  build/default/production/ChangeClk.o \
+  build/default/production/main.o \
   --defsym=__MPLAB_BUILD=1 \
   -Tp24F16KA101.gld.00 \
   --stack=16 \
@@ -59,6 +60,28 @@ c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a(strlen.XX_o
                               build/default/production/UART2.o (_strlen)
 
 
+Selected CodeGuard Options:
+  FGS:GWRP:OFF
+  FGS:GCP:OFF
+  FBS:BWRP:OFF
+  FBS:BSS:OFF
+
+CodeGuard FLASH Memory:
+  boot    (none)
+  secure  (none)
+  general 0x200 to 0x2bfe
+
+CodeGuard RAM Memory:
+  general 0x800 to 0xdff
+  secure  (none)
+  boot    (none)
+
+CodeGuard EEPROM Memory:
+  general 0x7ffe00 to 0x7fffff
+  secure  (none)
+  boot    (none)
+
+
 xc16-ld 2.00 (B)
 
 Default Code Model: Small
@@ -69,22 +92,22 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200               0x1d2           0x2bb  (699)
-.const                       0x3d2                0x8a            0xcf  (207)
-.text                        0x45c               0x424           0x636  (1590)
-.dinit                       0x880                 0xe            0x15  (21)
-.text                        0x88e                 0xa             0xf  (15)
+.text                        0x200               0x1f8           0x2f4  (756)
+.const                       0x3f8                0xa6            0xf9  (249)
+.text                        0x49e               0x496           0x6e1  (1761)
+.dinit                       0x934                0x1c            0x2a  (42)
 
-                 Total "program" memory used (bytes):          0x9e4  (2532) 15%
+                 Total "program" memory used (bytes):          0xaf8  (2808) 17%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x600]
 
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
-.nbss                        0x800                   0             0xc  (12)
+.nbss                        0x800                   0            0x10  (16)
+.ndata                       0x810                   0             0x2  (2)
 
-                 Total "data" memory used (bytes):            0xc  (12) <1%
+                 Total "data" memory used (bytes):           0x12  (18) 1%
 
 
 Dynamic Memory Usage
@@ -92,9 +115,9 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0x80c                               0x5f4  (1524)
+stack                        0x812                               0x5ee  (1518)
 
-                 Maximum dynamic memory (bytes):          0x5f4  (1524)
+                 Maximum dynamic memory (bytes):          0x5ee  (1518)
 
 Info: Project is using a large data memory model when small data memory model is sufficient.
 
@@ -106,14 +129,20 @@ External Symbols in Data Memory (by address):
                     0x0804                  _PB3flag
                     0x0806                  _twoFlag
                     0x0808                  _threeFlag
-                    0x080a                  _clkval
+                    0x080a                  _CNflag
+                    0x080c                  _i
+                    0x080e                  _clkval
+                    0x0810                  _nothingFlag
 
 External Symbols in Data Memory (by name):
 
+                    0x080a                  _CNflag
                     0x0800                  _PB1flag
                     0x0802                  _PB2flag
                     0x0804                  _PB3flag
-                    0x080a                  _clkval
+                    0x080e                  _clkval
+                    0x080c                  _i
+                    0x0810                  _nothingFlag
                     0x0808                  _threeFlag
                     0x0806                  _twoFlag
 
@@ -121,51 +150,51 @@ External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init_standard
                   0x000252                  __data_init
-                  0x0002c8                  __CNInterrupt
-                  0x00038a                  __T2Interrupt
-                  0x000394                  __U2TXInterrupt
-                  0x00039c                  __DefaultInterrupt
-                  0x0003a2                  _strlen
-                  0x00045c                  _InitUART2
-                  0x0004c4                  _XmitUART2
-                  0x000504                  _Disp2Hex
-                  0x00057c                  _Disp2Hex32
-                  0x0005fe                  _Disp2Dec
-                  0x00067a                  _Disp2String
-                  0x0006a2                  _IOinit
-                  0x00072c                  _swap_state
-                  0x000750                  _IOcheck
-                  0x000808                  _switchCLK
-                  0x000852                  _TDinit
-                  0x00086c                  _delay_ms
-                  0x00088e                  _main
+                  0x000252                  __data_init_standard
+                  0x0002c8                  __T2Interrupt
+                  0x0002d0                  __U2TXInterrupt
+                  0x0002d8                  __CNInterrupt
+                  0x0003c2                  __DefaultInterrupt
+                  0x0003c8                  _strlen
+                  0x00049e                  _InitUART2
+                  0x000506                  _XmitUART2
+                  0x000546                  _Disp2Hex
+                  0x0005be                  _Disp2Hex32
+                  0x000640                  _Disp2Dec
+                  0x0006bc                  _Disp2String
+                  0x0006e4                  _IOcheck
+                  0x000830                  _IOinit
+                  0x00085c                  _NewClk
+                  0x0008d8                  _delay_ms
+                  0x00090e                  _main
+                  0xf80000                  __FBS.sec
+                  0xf80004                  __FGS.sec
 
 External Symbols in Program Memory (by name):
 
-                  0x0005fe                  _Disp2Dec
-                  0x000504                  _Disp2Hex
-                  0x00057c                  _Disp2Hex32
-                  0x00067a                  _Disp2String
-                  0x000750                  _IOcheck
-                  0x0006a2                  _IOinit
-                  0x00045c                  _InitUART2
-                  0x000852                  _TDinit
-                  0x0004c4                  _XmitUART2
-                  0x0002c8                  __CNInterrupt
-                  0x00039c                  __DefaultInterrupt
-                  0x00038a                  __T2Interrupt
-                  0x000394                  __U2TXInterrupt
+                  0x000640                  _Disp2Dec
+                  0x000546                  _Disp2Hex
+                  0x0005be                  _Disp2Hex32
+                  0x0006bc                  _Disp2String
+                  0x0006e4                  _IOcheck
+                  0x000830                  _IOinit
+                  0x00049e                  _InitUART2
+                  0x00085c                  _NewClk
+                  0x000506                  _XmitUART2
+                  0x0002d8                  __CNInterrupt
+                  0x0003c2                  __DefaultInterrupt
+                  0xf80000                  __FBS.sec
+                  0xf80004                  __FGS.sec
+                  0x0002c8                  __T2Interrupt
+                  0x0002d0                  __U2TXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x00086c                  _delay_ms
-                  0x00088e                  _main
-                  0x0003a2                  _strlen
-                  0x00072c                  _swap_state
-                  0x000808                  _switchCLK
+                  0x0008d8                  _delay_ms
+                  0x00090e                  _main
+                  0x0003c8                  _strlen
 
 Memory Configuration
 
@@ -189,10 +218,11 @@ FDS              0xf80010           0x000002
 
 Linker script and memory map
 
-LOAD build/default/production/main.o
-LOAD build/default/production/IOs.o
 LOAD build/default/production/TimeDelay.o
 LOAD build/default/production/UART2.o
+LOAD build/default/production/IOs.o
+LOAD build/default/production/ChangeClk.o
+LOAD build/default/production/main.o
                     0x0001                  __MPLAB_BUILD = 0x1
 LOAD pPIC24Fxxx
 LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libfx-elf.a
@@ -218,7 +248,7 @@ LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200        0x1d2
+.text             0x000200        0x1f8
  *(.init)
  .init            0x000200         0x4c c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
@@ -230,33 +260,37 @@ LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libfx-elf.a
  *(.user_init)
  *(.handle)
  *(.isr*)
- .isr.text        0x0002c8         0xc2 build/default/production/IOs.o
-                  0x0002c8                  __CNInterrupt
- .isr.text        0x00038a          0xa build/default/production/TimeDelay.o
-                  0x00038a                  __T2Interrupt
- .isr.text        0x000394          0x8 build/default/production/UART2.o
-                  0x000394                  __U2TXInterrupt
- .isr             0x00039c          0x4 default_isr
-                  0x00039c                  __DefaultInterrupt
+ .isr.text        0x0002c8          0x8 build/default/production/TimeDelay.o
+                  0x0002c8                  __T2Interrupt
+ .isr.text        0x0002d0          0x8 build/default/production/UART2.o
+                  0x0002d0                  __U2TXInterrupt
+ .isr.text        0x0002d8         0xea build/default/production/IOs.o
+                  0x0002d8                  __CNInterrupt
+ .isr             0x0003c2          0x4 default_isr
+                  0x0003c2                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0003a0          0x2 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
-                  0x0003a0                  __crt_start_mode
-                  0x0003a0                  __crt_start_mode_normal
- .libc.strlen     0x0003a2         0x30 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a(strlen.XX_o)
-                  0x0003a2                  _strlen
+                  0x0003c6          0x2 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+                  0x0003c6                  __crt_start_mode
+                  0x0003c6                  __crt_start_mode_normal
+ .libc.strlen     0x0003c8         0x30 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a(strlen.XX_o)
+                  0x0003c8                  _strlen
 
 usercode
  *(usercode)
 
-__FBS
+__FBS             0xf80000          0x2
  *(__FBS.sec*)
+ __FBS.sec        0xf80000          0x2 /CW/_FBSp€á
+                  0xf80000                  __FBS.sec
 
-__FGS
+__FGS             0xf80004          0x2
  *(__FGS.sec*)
+ __FGS.sec        0xf80004          0x2 /CW/_FGS 0á
+                  0xf80004                  __FGS.sec
 
 __FOSCSEL
  *(__FOSCSEL.sec*)
@@ -279,40 +313,46 @@ __FDS
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x3643
+.debug_info       0x000000       0x2dcb
  *(.debug_info)
- .debug_info      0x000000        0x146 build/default/production/main.o
- .debug_info      0x000146       0x1bab build/default/production/IOs.o
- .debug_info      0x001cf1        0xaf0 build/default/production/TimeDelay.o
- .debug_info      0x0027e1        0xe62 build/default/production/UART2.o
+ .debug_info      0x000000        0x63f build/default/production/TimeDelay.o
+ .debug_info      0x00063f        0xe62 build/default/production/UART2.o
+ .debug_info      0x0014a1        0xfbe build/default/production/IOs.o
+ .debug_info      0x00245f        0x562 build/default/production/ChangeClk.o
+ .debug_info      0x0029c1        0x40a build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x3dd
+.debug_abbrev     0x000000        0x528
  *(.debug_abbrev)
- .debug_abbrev    0x000000         0x36 build/default/production/main.o
- .debug_abbrev    0x000036        0x136 build/default/production/IOs.o
- .debug_abbrev    0x00016c        0x14b build/default/production/TimeDelay.o
- .debug_abbrev    0x0002b7        0x126 build/default/production/UART2.o
+ .debug_abbrev    0x000000         0xeb build/default/production/TimeDelay.o
+ .debug_abbrev    0x0000eb        0x126 build/default/production/UART2.o
+ .debug_abbrev    0x000211        0x11c build/default/production/IOs.o
+ .debug_abbrev    0x00032d        0x123 build/default/production/ChangeClk.o
+ .debug_abbrev    0x000450         0xd8 build/default/production/main.o
 
-.debug_line       0x000000        0x463
+.debug_line       0x000000        0x64e
  *(.debug_line)
- .debug_line      0x000000         0x37 build/default/production/main.o
- .debug_line      0x000037        0x178 build/default/production/IOs.o
- .debug_line      0x0001af        0x137 build/default/production/TimeDelay.o
- .debug_line      0x0002e6        0x17d build/default/production/UART2.o
+ .debug_line      0x000000        0x126 build/default/production/TimeDelay.o
+ .debug_line      0x000126        0x17d build/default/production/UART2.o
+ .debug_line      0x0002a3        0x186 build/default/production/IOs.o
+ .debug_line      0x000429        0x115 build/default/production/ChangeClk.o
+ .debug_line      0x00053e        0x110 build/default/production/main.o
 
-.debug_frame      0x000000        0x214
+.debug_frame      0x000000        0x1f4
  *(.debug_frame)
- .debug_frame     0x000000         0x2e build/default/production/main.o
- .debug_frame     0x00002e         0xa0 build/default/production/IOs.o
- .debug_frame     0x0000ce         0x7c build/default/production/TimeDelay.o
- .debug_frame     0x00014a         0xca build/default/production/UART2.o
+ .debug_frame     0x000000         0x48 build/default/production/TimeDelay.o
+ .debug_frame     0x000048         0xca build/default/production/UART2.o
+ .debug_frame     0x000112         0x86 build/default/production/IOs.o
+ .debug_frame     0x000198         0x2e build/default/production/ChangeClk.o
+ .debug_frame     0x0001c6         0x2e build/default/production/main.o
 
-.debug_str        0x000000        0x17a
+.debug_str        0x000000        0x129
  *(.debug_str)
- .debug_str       0x000000         0xe5 build/default/production/IOs.o
- .debug_str       0x0000e5         0x47 build/default/production/TimeDelay.o
- .debug_str       0x00012c         0x4e build/default/production/UART2.o
+ .debug_str       0x000000         0x25 build/default/production/TimeDelay.o
+ .debug_str       0x000025         0x4e build/default/production/UART2.o
+ .debug_str       0x000073         0x8a build/default/production/IOs.o
+ .debug_str       0x0000fd         0x16 build/default/production/ChangeClk.o
+ .debug_str       0x000113         0x16 build/default/production/main.o
 
 .debug_loc
  *(.debug_loc)
@@ -321,30 +361,34 @@ __FDS
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x170
+                  0x000000        0x186
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0x1b build/default/production/main.o
+                  0x000000         0x30 build/default/production/TimeDelay.o
  .debug_pubnames
-                  0x00001b         0x87 build/default/production/IOs.o
+                  0x000030         0x85 build/default/production/UART2.o
  .debug_pubnames
-                  0x0000a2         0x49 build/default/production/TimeDelay.o
+                  0x0000b5         0x88 build/default/production/IOs.o
  .debug_pubnames
-                  0x0000eb         0x85 build/default/production/UART2.o
+                  0x00013d         0x1d build/default/production/ChangeClk.o
+ .debug_pubnames
+                  0x00015a         0x2c build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
 
-.debug_aranges    0x000000         0x60
+.debug_aranges    0x000000         0x78
  *(.debug_aranges)
  .debug_aranges
-                  0x000000         0x18 build/default/production/main.o
+                  0x000000         0x18 build/default/production/TimeDelay.o
  .debug_aranges
-                  0x000018         0x18 build/default/production/IOs.o
+                  0x000018         0x18 build/default/production/UART2.o
  .debug_aranges
-                  0x000030         0x18 build/default/production/TimeDelay.o
+                  0x000030         0x18 build/default/production/IOs.o
  .debug_aranges
-                  0x000048         0x18 build/default/production/UART2.o
+                  0x000048         0x18 build/default/production/ChangeClk.o
+ .debug_aranges
+                  0x000060         0x18 build/default/production/main.o
                     0x0000                  WREG0 = 0x0
                     0x0000                  _WREG0 = 0x0
                     0x0002                  WREG1 = 0x2
@@ -751,60 +795,59 @@ LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/Project4.X.production.elf elf32-pic30)
+LOAD /CW/_FGS 0á
+LOAD /CW/_FBSp€á
 LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000060        0x524
+                  0x000078        0x432
  .debug_pubtypes
-                  0x000060         0x12 build/default/production/main.o
+                  0x000078         0xa1 build/default/production/TimeDelay.o
  .debug_pubtypes
-                  0x000072        0x2e0 build/default/production/IOs.o
+                  0x000119        0x11f build/default/production/UART2.o
  .debug_pubtypes
-                  0x000352        0x113 build/default/production/TimeDelay.o
+                  0x000238        0x18b build/default/production/IOs.o
  .debug_pubtypes
-                  0x000465        0x11f build/default/production/UART2.o
+                  0x0003c3         0x7a build/default/production/ChangeClk.o
+ .debug_pubtypes
+                  0x00043d         0x6d build/default/production/main.o
 
 __c30_signature
-                  0x000584         0x2a
+                  0x0004aa         0x30
  __c30_signature
-                  0x000584          0x6 build/default/production/main.o
+                  0x0004aa          0x6 build/default/production/TimeDelay.o
  __c30_signature
-                  0x00058a          0x6 build/default/production/IOs.o
+                  0x0004b0          0x6 build/default/production/UART2.o
  __c30_signature
-                  0x000590          0x6 build/default/production/TimeDelay.o
+                  0x0004b6          0x6 build/default/production/IOs.o
  __c30_signature
-                  0x000596          0x6 build/default/production/UART2.o
+                  0x0004bc          0x6 build/default/production/ChangeClk.o
  __c30_signature
-                  0x00059c          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
+                  0x0004c2          0x6 build/default/production/main.o
  __c30_signature
-                  0x0005a2          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+                  0x0004c8          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
  __c30_signature
-                  0x0005a8          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a(strlen.XX_o)
+                  0x0004ce          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-pic30-elf.a(data_init_standard.o)
+ __c30_signature
+                  0x0004d4          0x6 c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a(strlen.XX_o)
 
-.nbss               0x0800          0xc
+.nbss               0x0800         0x10
  .nbss              0x0800          0xa build/default/production/IOs.o
                     0x0800                  _PB1flag
                     0x0802                  _PB2flag
                     0x0804                  _PB3flag
                     0x0806                  _twoFlag
                     0x0808                  _threeFlag
- .nbss              0x080a          0x2 build/default/production/UART2.o
-                    0x080a                  _clkval
+ .nbss              0x080a          0x4 build/default/production/main.o
+                    0x080a                  _CNflag
+                    0x080c                  _i
+ .nbss              0x080e          0x2 build/default/production/UART2.o
+                    0x080e                  _clkval
 
-.config_BKBUG     0xf8000e          0x2
- .config_BKBUG    0xf8000e          0x2 build/default/production/main.o
-
-.config_FCKSM     0xf80008          0x2
- .config_FCKSM    0xf80008          0x2 build/default/production/main.o
-
-.config_IESO      0xf80006          0x2
- .config_IESO     0xf80006          0x2 build/default/production/main.o
-
-.ivt._CNInterrupt
-                  0x00003a          0x2
- .ivt._CNInterrupt
-                  0x00003a          0x2 build/default/production/IOs.o
+.ndata              0x0810          0x2
+ .ndata             0x0810          0x2 build/default/production/IOs.o
+                    0x0810                  _nothingFlag
 
 .ivt._T2Interrupt
                   0x000022          0x2
@@ -816,29 +859,52 @@ __c30_signature
  .ivt._U2TXInterrupt
                   0x000052          0x2 build/default/production/UART2.o
 
-.const              0x83d2         0x8a load address 0x0003d2  
- .const             0x83d2         0x8a build/default/production/IOs.o
+.ivt._CNInterrupt
+                  0x00003a          0x2
+ .ivt._CNInterrupt
+                  0x00003a          0x2 build/default/production/IOs.o
 
-.text             0x00045c        0x424
- .text            0x00045c        0x246 build/default/production/UART2.o
-                  0x00045c                  _InitUART2
-                  0x0004c4                  _XmitUART2
-                  0x000504                  _Disp2Hex
-                  0x00057c                  _Disp2Hex32
-                  0x0005fe                  _Disp2Dec
-                  0x00067a                  _Disp2String
- .text            0x0006a2        0x166 build/default/production/IOs.o
-                  0x0006a2                  _IOinit
-                  0x00072c                  _swap_state
-                  0x000750                  _IOcheck
- .text            0x000808         0x78 build/default/production/TimeDelay.o
-                  0x000808                  _switchCLK
-                  0x000852                  _TDinit
-                  0x00086c                  _delay_ms
+.config_DSWDTEN
+                  0xf80010          0x2
+ .config_DSWDTEN
+                  0xf80010          0x2 build/default/production/main.o
 
-.dinit            0x000880          0xe
- .dinit           0x000880          0xe data_init
+.config_BKBUG     0xf8000e          0x2
+ .config_BKBUG    0xf8000e          0x2 build/default/production/main.o
 
-.text             0x00088e          0xa
- .text            0x00088e          0xa build/default/production/main.o
-                  0x00088e                  _main
+.config_MCLRE     0xf8000c          0x2
+ .config_MCLRE    0xf8000c          0x2 build/default/production/main.o
+
+.config_FWDTEN    0xf8000a          0x2
+ .config_FWDTEN
+                  0xf8000a          0x2 build/default/production/main.o
+
+.config_FCKSM     0xf80008          0x2
+ .config_FCKSM    0xf80008          0x2 build/default/production/main.o
+
+.config_IESO      0xf80006          0x2
+ .config_IESO     0xf80006          0x2 build/default/production/main.o
+
+.const              0x83f8         0xa6 load address 0x0003f8  
+ .const             0x83f8         0xa6 build/default/production/IOs.o
+
+.text             0x00049e        0x496
+ .text            0x00049e        0x246 build/default/production/UART2.o
+                  0x00049e                  _InitUART2
+                  0x000506                  _XmitUART2
+                  0x000546                  _Disp2Hex
+                  0x0005be                  _Disp2Hex32
+                  0x000640                  _Disp2Dec
+                  0x0006bc                  _Disp2String
+ .text            0x0006e4        0x178 build/default/production/IOs.o
+                  0x0006e4                  _IOcheck
+                  0x000830                  _IOinit
+ .text            0x00085c         0x7c build/default/production/ChangeClk.o
+                  0x00085c                  _NewClk
+ .text            0x0008d8         0x36 build/default/production/TimeDelay.o
+                  0x0008d8                  _delay_ms
+ .text            0x00090e         0x26 build/default/production/main.o
+                  0x00090e                  _main
+
+.dinit            0x000934         0x1c
+ .dinit           0x000934         0x1c data_init

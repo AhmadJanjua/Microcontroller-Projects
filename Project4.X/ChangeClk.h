@@ -19,7 +19,6 @@ extern "C" {
 }
 #endif
 
-
 void NewClk(unsigned int);
 
 #endif	/* CHANGECLK_H */

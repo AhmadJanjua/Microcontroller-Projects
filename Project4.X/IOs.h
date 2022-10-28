@@ -1,16 +1,28 @@
-#ifndef IOS_H
-#define IOS_H
 
-#include "xc.h"
+// more than once.  
+#ifndef XC_HEADER_TEMPLATE_H
+#define	XC_HEADER_TEMPLATE_H
+
+#include <xc.h> // include processor files - each processor file is guarded.  
+#include "IOs.h"
+
+#ifdef	__cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+    // TODO If C++ is being used, regular C code needs function names to have C 
+    // linkage so the functions can be used by the c code. 
+
+#ifdef	__cplusplus
+}
+#endif /* __cplusplus */
+
+
+
+
+
+#endif	/* XC_HEADER_TEMPLATE_H */
+
+extern uint8_t CNflag; 
 void IOinit(void);
-//REQUIRES:
-//PROMISES: Preprocessor Setup and pin setup to work with the breadboard and LED pin setup.
 void IOcheck(void);
-//REQUIRES:
-//PROMISES: Uses boolean true or false values for pin state to call delay_ms(time) at different values for time
-// for different pins/buttons fired.
-void swap_state(void);
-//REQUIRES:
-//PROMISES: Changes state of LED 
-#endif
-
