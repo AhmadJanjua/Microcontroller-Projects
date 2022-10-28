@@ -1,14 +1,14 @@
-#include "xc.h"
+/*
+ * File:   UART2.c
+ * Created on October 27 2022
+ */
 #include "UART2.h"
-#include "string.h"
-
-unsigned int clkval;
-
 
 ///// Initialization of UART 2 module.
 //// From Section 18 of PIC24F Datasheet
 //// configures UART2 module on pins RB0 (Tx) and RB1 (Rx) on PIC24F16KA101 
 //// Enables UART2 
+unsigned int clkval;
 
 void InitUART2(void) 
 {
@@ -83,13 +83,10 @@ void InitUART2(void)
 	return;
 }
 
-
-
 /// Xmit UART2: 
 /// Displays 'DispData' on PC terminal 'repeatNo' of times using UART to PC. 
 /// Adjust Baud on real term as per clock: 
 //  32kHz clock - Baud=300 ; 500kHz clock - Baud=4800; 8MHz clock - Baud=9600 
-
 void XmitUART2(char CharNum, unsigned int repeatNo)
 {	
    // InitUART2();	//Initialize UART2 module at start of main()
@@ -112,16 +109,11 @@ void XmitUART2(char CharNum, unsigned int repeatNo)
 	return;
 }
 
-
-
-
 // Interrupt service routine for UART TX
-
 void __attribute__ ((interrupt, no_auto_psv)) _U2TXInterrupt(void) {
 	IFS1bits.U2TXIF = 0;
 
 }
-
 
 // Displays 16 bit number in Hex form using UART2
 void Disp2Hex(unsigned int DispData)   

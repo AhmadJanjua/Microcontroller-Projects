@@ -1,17 +1,12 @@
 /*
  * File:   TimeDelay.c
- * Author: Rushi V
- *
- * Created on October 5, 2020, 4:05 PM
+ * Created on October 27 2022
  */
 
 
-#include "xc.h"
 #include "TimeDelay.h"
 
-
-void delay_ms(uint16_t time_ms, uint8_t idle_on)
-{
+void delay_init() {
     //T2CON config
     T2CONbits.TSIDL = 0; //operate in idle mode
     T2CONbits.T32 = 0; // operate timer 2 as 16 bit timer
@@ -21,8 +16,11 @@ void delay_ms(uint16_t time_ms, uint8_t idle_on)
     // Timer 2 interrupt config
     IPC1bits.T2IP = 2; //7 is highest and 1 is lowest priority
     IEC0bits.T2IE = 1; //enable timer interrupt
-    IFS0bits.T2IF = 0; // Clear timer 2 flaf
-    
+    IFS0bits.T2IF = 0; // Clear timer 2 flag
+}
+
+void delay_ms(uint16_t time_ms, uint8_t idle_on)
+{    
     PR2 = time_ms << 4; //After PR2 simplification
     TMR2 = 0;
     T2CONbits.TON = 1; //start timer
@@ -39,7 +37,5 @@ void delay_ms(uint16_t time_ms, uint8_t idle_on)
 void __attribute__((interrupt, no_auto_psv)) _T2Interrupt(void)
 {
      IFS0bits.T2IF=0; //Clear timer 2 interrupt flag
-    
-    // TMR2flag = 1; // optional global variable created by user
     return;
 }

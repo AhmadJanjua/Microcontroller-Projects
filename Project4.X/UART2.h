@@ -1,29 +1,16 @@
 /* 
- * File:   UART2.h
- * Author: rvyas
- *
- * 
+ * File: UART2.h
  */
 
 #ifndef UART2_H
 #define	UART2_H
 
-#ifdef	__cplusplus
-extern "C" {
-#endif
+#include "xc.h"
+#include "string.h"
 
-
-
-
-#ifdef	__cplusplus
-}
-#endif
-
+void __attribute__ ((interrupt, no_auto_psv)) _U2TXInterrupt(void);
 void InitUART2(void);
 void XmitUART2(char, unsigned int);
-
-void __attribute__ ((interrupt, no_auto_psv)) _U2TXInterrupt(void); 
-
 void Disp2Hex(unsigned int);
 void Disp2Hex32(unsigned long int);
 void Disp2String(char*);

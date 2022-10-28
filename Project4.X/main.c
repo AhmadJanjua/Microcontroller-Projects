@@ -1,8 +1,6 @@
 /*
  * File:   main.c
- * Author: Rushi V
- *
- * Created on September 26, 2020, 9:17 PM
+ * Created on October 27 2022
  */
 
 // MPLAB header libraries
@@ -73,7 +71,7 @@ uint16_t i = 0;
 
 
 //MAIN
-int main(void) {
+int main(void) {   
     //Clock output on REFO/RB15 - Testing purposes only
      TRISBbits.TRISB15 = 0;  // Set RB15 as output for REFO
      REFOCONbits.ROEN = 1; // Ref oscillator is enabled
@@ -87,13 +85,14 @@ int main(void) {
    // Initialize IOs for low-power wake-up
     AD1PCFG = 0xFFFF; // Turn all analog pins as digital
     
+    delay_init();     // Configure interrupts
+    
     IOinit();         // enables IO and CN interrupts on Push buttons
     
     InitUART2();      //Initialize UART settings and enable UART module
     
     while(1)
-    {        
-        NewClk(8);
+    {
         IOcheck();        
     }
     

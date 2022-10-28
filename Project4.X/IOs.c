@@ -1,53 +1,41 @@
 /*
  * File:   IOs.c
- * Author: Rushi V
- *
- * Created on September 30, 2020, 11:33 AM
+ * Created on October 27 2022
  */
 
-
-#include "xc.h"
-#include "ChangeClk.h"
-#include "TimeDelay.h"
 #include "IOs.h"
-#include "UART2.h"
 
 // Global flags
-int PB1flag = 0, PB2flag = 0, PB3flag = 0;
-int twoFlag = 0, threeFlag = 0, nothingFlag = 1;
+int PB1flag = 0, PB2flag = 0, PB3flag = 0, twoFlag = 0, threeFlag = 0, nothingFlag = 0;
 
 // IOCheck with Timers
 void IOcheck(void)
 {
     // Check if all the buttons are pressed
     if ( threeFlag == 1 ) {
-        Disp2String ("All PBs pressed\n\r");
-        while(threeFlag == 1) {
-            PORTBbits.RB8 = 1;
-        }
+        Disp2String ("All PBs pressed\r");
+        PORTBbits.RB8 = 1;
+        while(threeFlag == 1) {;}
     }
-    // Checks if PB1 and PB2 are clicked
+    // Checks if 2 PB are clicked
     else if ( twoFlag == 1) { 
         NewClk(8);
         if(PORTAbits.RA2==0 && PORTAbits.RA4==0 ){
-            Disp2String ("PB1 and PB2 are pressed\n\r");      
+            Disp2String ("PB1 and PB3 are pressed\r");      
         }
         else if(PORTAbits.RA4==0 && PORTBbits.RB4==0 ){
-            Disp2String ("PB2 and PB3 are pressed\n\r");
+            Disp2String ("PB2 and PB3 are pressed\r");
         }
         if(PORTAbits.RA2==0 && PORTBbits.RB4==0 ){
-            Disp2String ("PB1 and PB3 are pressed\n\r");
+            Disp2String ("PB1 and PB2 are pressed\r");
         }
-        NewClk(32);
-        while(twoFlag == 1 ){
-            PORTBbits.RB8 = 1;
-        }
+        PORTBbits.RB8 = 1;
+        while(twoFlag == 1 ){;}
     }
     // Checks if PB1 is pressed
     else if (PB1flag == 1) {
         NewClk(8);
-        Disp2String("PB1 is pressed\n\r");
-        // Keep checking if PB1 is pressed
+        Disp2String("PB1 is pressed\r");
         NewClk(32);
         while(PB1flag == 1) {
             PORTBbits.RB8 = !PORTBbits.RB8;
@@ -57,8 +45,7 @@ void IOcheck(void)
     // Checks if PB2 is pressed
     else if (PB2flag == 1) {
         NewClk(8);
-        Disp2String("PB2 is pressed\n\r");
-        // Keep checking if PB2 is pressed
+        Disp2String("PB2 is pressed\r");
         NewClk(32);
         while(PB2flag == 1) {
             PORTBbits.RB8 = !PORTBbits.RB8;
@@ -68,8 +55,7 @@ void IOcheck(void)
     // Checks if PB3 is pressed
     else if (PB3flag == 1) {
         NewClk(8);
-        Disp2String("PB3 is pressed\n\r");
-        // Keep checking if PB3 is pressed
+        Disp2String("PB3 is pressed\r");
         NewClk(32);
         while(PB3flag == 1) {
            PORTBbits.RB8 = !PORTBbits.RB8;
@@ -79,7 +65,7 @@ void IOcheck(void)
     // When no buttons are pressed, led is off
     else if ( nothingFlag == 1) {
         NewClk(8);
-        Disp2String( "Nothing pressed\n\r" );
+        Disp2String( "Nothing pressed\r" );
         LATBbits.LATB8 = 0; // Set led off
         while(nothingFlag == 1){;}
     }
@@ -116,36 +102,36 @@ void IOinit(void)
 void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void)
 {
     IEC1bits.CNIE = 0; //disable CN interrupts to avoid debounces 
-    PB1flag = PB2flag = PB3flag = twoFlag = threeFlag = nothingFlag = 0;
     NewClk(32);
-    delay_ms(200,1);   // 200 msec delay to filter out debounces 
+    delay_ms(200,1);   // Make Sure buttons are pressed
     NewClk(8);
-    if(PORTAbits.RA2 == 0 || PORTAbits.RA4 == 0 || PORTBbits.RB4 == 0) {
-        PORTBbits.RB8 = 0;
-        
-        if((PORTAbits.RA2 + PORTAbits.RA4 + PORTBbits.RB4)  == 0){
+    
+    PB1flag = PB2flag = PB3flag = twoFlag = threeFlag = nothingFlag = 0;
+    
+    if(PORTAbits.RA2 == 0 || PORTAbits.RA4 == 0 || PORTBbits.RB4 == 0) {        
+        if((PORTAbits.RA2 + PORTAbits.RA4 + PORTBbits.RB4)  == 0)
            threeFlag = 1;           
-        }
-        else if((PORTAbits.RA2 + PORTAbits.RA4 + PORTBbits.RB4)  < 2) {
+        else if((PORTAbits.RA2 + PORTAbits.RA4 + PORTBbits.RB4)  < 2)
             twoFlag = 1;
-        }
-        else if (PORTAbits.RA2 == 0) {
+        else if (PORTAbits.RA2 == 0)
             PB1flag = 1;
-        }
-        else if (PORTBbits.RB4 == 0) {
+        else if (PORTBbits.RB4 == 0)
             PB2flag = 1;
-        }
-        else if (PORTAbits.RA4 == 0) {
+        else if (PORTAbits.RA4 == 0)
            PB3flag = 1;
-        }
     }
     else {
         nothingFlag = 1; 
     }
+    
     NewClk(32);
-    delay_ms(200,1);   // 200 msec delay to filter out debounces 
+    delay_ms(200,1);   // 100 msec delay to filter out debounces 
+    
     NewClk(8);
-    IFS1bits.CNIF = 0;		// clear IF flag
-    IEC1bits.CNIE = 1; //Enable CN interrupts to detect pb release    
+    
+    IFS1bits.CNIF = 0; // clear IF flag
+    
+    IEC1bits.CNIE = 1; //Enable CN interrupts to detect pb release  
+
     return;
 }
