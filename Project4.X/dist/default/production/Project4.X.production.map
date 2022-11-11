@@ -285,12 +285,12 @@ usercode
 
 __FBS             0xf80000          0x2
  *(__FBS.sec*)
- __FBS.sec        0xf80000          0x2 /CW/_FBSê5·
+ __FBS.sec        0xf80000          0x2 /CW/_FBS0Ù“
                   0xf80000                  __FBS.sec
 
 __FGS             0xf80004          0x2
  *(__FGS.sec*)
- __FGS.sec        0xf80004          0x2 /CW/_FGS@Â‡
+ __FGS.sec        0xf80004          0x2 /CW/_FGS≥“
                   0xf80004                  __FGS.sec
 
 __FOSCSEL
@@ -314,13 +314,13 @@ __FDS
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x2dff
+.debug_info       0x000000       0x2dcd
  *(.debug_info)
- .debug_info      0x000000        0x658 build/default/production/TimeDelay.o
- .debug_info      0x000658        0xe62 build/default/production/UART2.o
- .debug_info      0x0014ba        0xfbe build/default/production/IOs.o
- .debug_info      0x002478        0x562 build/default/production/ChangeClk.o
- .debug_info      0x0029da        0x425 build/default/production/main.o
+ .debug_info      0x000000        0x64e build/default/production/TimeDelay.o
+ .debug_info      0x00064e        0xe58 build/default/production/UART2.o
+ .debug_info      0x0014a6        0xfb4 build/default/production/IOs.o
+ .debug_info      0x00245a        0x558 build/default/production/ChangeClk.o
+ .debug_info      0x0029b2        0x41b build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x553
@@ -796,8 +796,8 @@ LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v2.00/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/Project4.X.production.elf elf32-pic30)
-LOAD /CW/_FGS@Â‡
-LOAD /CW/_FBSê5·
+LOAD /CW/_FGS≥“
+LOAD /CW/_FBS0Ù“
 LOAD default_isr
 LOAD data_init
 
