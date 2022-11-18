@@ -93,14 +93,15 @@ int main(void) {
     
     InitUART2();      //Initialize UART settings and enable UART module
     
-    ADCinit();
+    ADCinit();        // Initialize ADC 
     
     uint16_t num;
     
     while(1)
     {
-        Idle();
-        LATBbits.LATB8 = !LATBbits.LATB8;
+        if(CNflag) {
+            Idle();
+        }
         num = do_ADC();
         XmitUART2('+', num/6);
         Disp2Hex(num);

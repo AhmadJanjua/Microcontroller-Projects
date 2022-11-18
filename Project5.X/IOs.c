@@ -42,6 +42,7 @@ void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void)
     NewClk(32);
     delay_ms(400,1);   // Make Sure buttons are pressed
     NewClk(8);
+    CNflag = !CNflag;
     IFS1bits.CNIF = 0; // clear IF flag
-    IEC1bits.CNIE = 1; //disable CN interrupts to avoid debounces 
+    IEC1bits.CNIE = 1; //enable CN interrupts 
 }

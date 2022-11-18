@@ -39,9 +39,6 @@ uint16_t do_ADC(void) {
     AD1CON1bits.ADON = 1;       // Power the ADC module on
     
     AD1CON1bits.SAMP = 1;           // start sampling...
-    NewClk(32);
-    delay_ms(400,1);
-    NewClk(8);
     AD1CON1bits.SAMP = 0;    
     while (!AD1CON1bits.DONE){};    // conversion done?
     
