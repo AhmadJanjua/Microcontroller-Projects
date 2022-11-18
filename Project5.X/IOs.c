@@ -39,6 +39,7 @@ void IOinit(void)
 void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void)
 {
     IEC1bits.CNIE = 0; //disable CN interrupts to avoid debounces 
+    while(U2STAbits.TRMT==0){}	//Turn off UART2 upon transmission of last character; also can be Verified in interrupt subroutine U2TXInterrupt()
     NewClk(32);
     delay_ms(400,1);   // Make Sure buttons are pressed
     NewClk(8);
