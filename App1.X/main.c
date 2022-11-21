@@ -9,7 +9,9 @@ int main(void) {
     timerInit();        // Initialize timer
     IOinit();           // enables IO and CN interrupts on Push buttons
     InitUART2();        //Initialize UART settings and enable UART module
-
+    
+    Disp2String("00m : 00s\n\r");
+    
     while(1)
     {
         if(resume) {

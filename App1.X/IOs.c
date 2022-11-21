@@ -64,16 +64,16 @@ void IOcheck(void)
         while(CNflag == 1) {
             sec = ++sec%60;
             printNum();
-            delay_ms(400,1);
-            NewClk(8);   
+            delay_ms(300,1);
+            NewClk(8);
         }
     }
     else if (CNflag == 2) {
         while(CNflag == 2) {
             min = ++min%60;
             printNum();
-            delay_ms(400,1);
-            NewClk(8);   
+            delay_ms(300,1);
+            NewClk(8);
         }
     }
     else if (CNflag == 3) {
@@ -82,6 +82,7 @@ void IOcheck(void)
     else if (CNflag == 4) {
         min = 0;
         sec = 0;
+        LATBbits.LATB8 = 0;
         Disp2String("00m : 00s\r\n");
     }
     CNflag = 0;
