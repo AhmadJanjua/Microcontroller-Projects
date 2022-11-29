@@ -1,35 +1,7 @@
 #include "IOs.h"
 
 // Global variables
-uint8_t min, sec, CNflag;
-
-void printNum() {
-    Disp2Digit(min);
-    Disp2String("m : ");
-    Disp2Digit(sec);
-    Disp2String("s\r\n");
-}
-
-void countDown() {
-    
-    if(!min && !sec) {
-        // Nothing
-    } else if(!sec) {
-        sec = 59;
-        min--;
-    } else {
-        --sec;
-    }
-    
-    if(!min && !sec) {
-        resume = 0;
-        Disp2String("00m : 00s -- ALARM\r\n");
-        LATBbits.LATB8 = 1;           
-    } else {
-        LATBbits.LATB8 = !LATBbits.LATB8; 
-        printNum();       
-    }
-}
+uint8_t CNflag;
 
 //// IOinit() with IO interrupts
 void IOinit(void)
@@ -60,30 +32,21 @@ void IOinit(void)
 // IOCheck with Timers
 void IOcheck(void)
 {
+    IEC1bits.CNIE = 0; //disable CN interrupts to avoid de-bounces
+    // Delay to avoid de-bounce
+    NewClk(32);
+    delay_ms(200,1);
+    NewClk(8);
+    IEC1bits.CNIE = 1; //disable CN interrupts to avoid de-bounces
+    
     if(CNflag == 1){
-        while(CNflag == 1) {
-            sec = ++sec%60;
-            printNum();
-            delay_ms(300,1);
-            NewClk(8);
-        }
+        Disp2String("b1\r\n");
     }
     else if (CNflag == 2) {
-        while(CNflag == 2) {
-            min = ++min%60;
-            printNum();
-            delay_ms(300,1);
-            NewClk(8);
-        }
+        Disp2String("b2\r\n");
     }
     else if (CNflag == 3) {
-        resume = !resume;
-    }
-    else if (CNflag == 4) {
-        min = 0;
-        sec = 0;
-        LATBbits.LATB8 = 0;
-        Disp2String("00m : 00s\r\n");
+        Disp2String("b3\r\n");
     }
     CNflag = 0;
     return;
@@ -91,18 +54,7 @@ void IOcheck(void)
 
 ///// Change of pin Interrupt subroutine
 void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void)
-{
-    IEC1bits.CNIE = 0; //disable CN interrupts to avoid de-bounces
-    
-    // Delay to avoid de-bounce
-    NewClk(32);
-    delay_ms(400,1);
-    NewClk(8);
-    
-    // Reset timer flag
-    timerFlag = 0;
-    resume = 0;
-    
+{     
     if(PORTAbits.RA2 == 0){
         CNflag = 1;
     }
@@ -111,22 +63,8 @@ void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void)
     }
     else if (PORTAbits.RA4 == 0) {
         CNflag = 3;
-        
-        delay_ms(3000,0);
-        while(PORTAbits.RA4 == 0){
-            if(timerFlag == 1) {
-                CNflag = 4;
-                break;
-            }   
-        }
-        NewClk(8);
-        T2CONbits.TON=0; // Stop timer
-    }
-    else if (PORTAbits.RA4 == 1 && (CNflag == 3 || CNflag == 4)){}
-    else {
-        CNflag = 0;
+        resume = !resume;
     }
 	IFS1bits.CNIF = 0;		// clear IF flag
-    IEC1bits.CNIE = 1; //Enable CN interrupts to detect Pb release
     return;
 }

@@ -1,7 +1,7 @@
 #include "main.h"
 
 // Global variables
-uint8_t resume = 0;
+uint8_t resume = 1;
 
 int main(void) {   
    // Initialize IOs for low-power wake-up
@@ -9,17 +9,18 @@ int main(void) {
     timerInit();        // Initialize timer
     IOinit();           // enables IO and CN interrupts on Push buttons
     InitUART2();        //Initialize UART settings and enable UART module
-    
+    ADCinit();          // Initialize the ADC
+    NewClk(8);
     while(1)
     {
-        if(resume) {
-          delay_ms(1000,1);
-          NewClk(8);
+        while(resume) {
+            Disp2Digit(do_ADC());
+            Disp2String("\r\n");
         }        
-        else {
+        if(!resume) {
             Idle();
-            IOcheck();
         }
+        IOcheck();
     }
     return 0;
 }

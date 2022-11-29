@@ -14,6 +14,7 @@
 #include "TimeDelay.h"
 #include "IOs.h"
 #include "UART2.h"
+#include "ADC.h"
 
 // PRE-PROCESSOR DIRECTIVES - CONFIGURATION BITS
 

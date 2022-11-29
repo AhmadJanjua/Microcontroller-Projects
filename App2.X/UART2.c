@@ -81,21 +81,20 @@ void XmitUART2(char CharNum, unsigned int repeatNo)
 }
 
 // Displays 16 bit number DispNum in Decimal form using UART2
-void Disp2Digit(uint8_t DispNum)
+void Disp2Digit(uint16_t DispNum)
 {
-    char rem[2] = {0,0}; // array to store remainders
+    char rem[5] = {0,0,0,0,0}; // array to store remainders
     char rem1;
     uint8_t i=0; 
-    for(i = 0; i<2; i++)
-    {
+    for(i = 0; i<5; i++) {
         rem[i] = DispNum%10;
         DispNum = DispNum/10;
     }
-    for(i = 2; i>0; i--)
+    for(i = 5; i>0; i--)
     {
         rem1 = rem[i-1];
         XmitUART2((rem1+48),1);
-    }  
+    }    
     return;
 }
 
