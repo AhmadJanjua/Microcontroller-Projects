@@ -14,7 +14,7 @@
 #include "TimeDelay.h"
 #include "IOs.h"
 #include "UART2.h"
-#include "ADC.h"
+#include "WDT.h"
 
 // PRE-PROCESSOR DIRECTIVES - CONFIGURATION BITS
 
@@ -66,10 +66,6 @@
 #define Sleep() {__asm__ volatile ("pwrsav #0");}   //Sleep() - put MCU in sleep mode - CPU and some peripherals off
 #define Idle() {__asm__ volatile ("pwrsav #1");}    //Idle() - put MCU in idle mode - only CPU off
 #define dsen() {__asm__ volatile ("BSET DSCON, #15");} //
-
-void countUp();
-void increaseMin();
-void increaseSec();
 
 #endif	/* MAIN_H */
 

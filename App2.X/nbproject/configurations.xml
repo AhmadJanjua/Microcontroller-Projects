@@ -10,6 +10,7 @@
       <itemPath>UART2.h</itemPath>
       <itemPath>main.h</itemPath>
       <itemPath>ADC.h</itemPath>
+      <itemPath>WDT.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -24,6 +25,7 @@
       <itemPath>TimeDelay.c</itemPath>
       <itemPath>UART2.c</itemPath>
       <itemPath>ADC.c</itemPath>
+      <itemPath>WDT.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

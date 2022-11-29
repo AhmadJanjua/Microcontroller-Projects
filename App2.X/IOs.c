@@ -31,22 +31,17 @@ void IOinit(void)
 
 // IOCheck with Timers
 void IOcheck(void)
-{
-    IEC1bits.CNIE = 0; //disable CN interrupts to avoid de-bounces
-    // Delay to avoid de-bounce
-    NewClk(32);
-    delay_ms(200,1);
-    NewClk(8);
-    IEC1bits.CNIE = 1; //disable CN interrupts to avoid de-bounces
-    
+{    
     if(CNflag == 1){
         Disp2String("b1\r\n");
+        resume = !resume;
     }
     else if (CNflag == 2) {
         Disp2String("b2\r\n");
     }
     else if (CNflag == 3) {
         Disp2String("b3\r\n");
+        WDTexec();
     }
     CNflag = 0;
     return;
@@ -54,17 +49,24 @@ void IOcheck(void)
 
 ///// Change of pin Interrupt subroutine
 void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void)
-{     
+{
+    IEC1bits.CNIE = 0; //disable CN interrupts to avoid de-bounces
+    // Delay to avoid de-bounce
+    delay_ms(200,1);
+    NewClk(8);
+    
     if(PORTAbits.RA2 == 0){
         CNflag = 1;
+        resume = !resume;
     }
     else if (PORTBbits.RB4 == 0) {
         CNflag = 2;
+        resume = !resume;
     }
     else if (PORTAbits.RA4 == 0) {
         CNflag = 3;
-        resume = !resume;
     }
 	IFS1bits.CNIF = 0;		// clear IF flag
+    IEC1bits.CNIE = 1; //disable CN interrupts to avoid de-bounces
     return;
 }
