@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/App1.X.production.elf">
+  <executable name="dist/default/production/App2.X.production.elf">
     <memory name="data">
       <units>bytes</units>
       <length>1536</length>

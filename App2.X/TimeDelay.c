@@ -3,7 +3,7 @@
 uint8_t timerFlag;
 
 void timerInit() {
-        //T2CON configuration
+    //T2CON configuration
     T2CONbits.TSIDL = 0; //operate in idle mode
     T2CONbits.T32 = 0; // operate timer 2 as 16 bit timer
     T2CONbits.TCS = 0; // use internal clock
