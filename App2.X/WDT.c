@@ -6,6 +6,7 @@
  */
 #include "WDT.h"
 
+// Execute a reset
 void WDTexec() {
     RCONbits.SWDTEN = 1;
 }

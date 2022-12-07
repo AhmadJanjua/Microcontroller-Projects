@@ -33,14 +33,16 @@ void IOinit(void)
 void IOcheck(void)
 {    
     if(CNflag == 1){
-        Disp2String("b1\r\n");
-        resume = !resume;
+        // Send signal of button press to UART
+        Disp2String("aaa\r\n");
     }
     else if (CNflag == 2) {
-        Disp2String("b2\r\n");
+        // Send signal of button press to UART
+        Disp2String("bbb\r\n");
     }
     else if (CNflag == 3) {
-        Disp2String("b3\r\n");
+        // Send signal of button press to UART
+        Disp2String("ccc\r\n");
         WDTexec();
     }
     CNflag = 0;
@@ -57,16 +59,17 @@ void __attribute__((interrupt, no_auto_psv)) _CNInterrupt(void)
     
     if(PORTAbits.RA2 == 0){
         CNflag = 1;
-        resume = !resume;
     }
     else if (PORTBbits.RB4 == 0) {
         CNflag = 2;
+        // Set to idle or not
         resume = !resume;
     }
     else if (PORTAbits.RA4 == 0) {
         CNflag = 3;
     }
-	IFS1bits.CNIF = 0;		// clear IF flag
-    IEC1bits.CNIE = 1; //disable CN interrupts to avoid de-bounces
+	IFS1bits.CNIF = 0;	// clear IF flag
+    IEC1bits.CNIE = 1;  //disable CN interrupts to avoid de-bounces
+    
     return;
 }
